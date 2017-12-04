@@ -1,4 +1,4 @@
-#AECC Scripts
+# AECC Scripts
 
 Here we store scripts that we use to maintain our office, network, and raspberry pi running.
 
