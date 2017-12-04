@@ -12,19 +12,19 @@ client = gspread.authorize(creds)
 # Make sure you use the right name here.
 sheet = client.open("Formulario para Ingresar a AECC (Responses)").sheet1
 
-# Extract and print all of the values
-#list_of_hashes = sheet.get_all_records()
-table = sheet.get_all_values()
-
-
+# acquire student numbers 
 sids = sheet.col_values(6)
 
+# acquire phone numbers
 phones = sheet.col_values(7)
 
+# bool confirming members have payed 
 confirmation = sheet.col_values(19)
 
+# freeradius entries
 entries = []
 
+# parse all entries and only add them if it's a confirmed member 
 for i in range(1,len(sids)):
 	if (confirmation[i] == '1'):
 		user = sids[i]
@@ -32,11 +32,11 @@ for i in range(1,len(sids)):
 		entry = "{} Cleartext-password :=\"{}\"".format(user, pswd)
 		#print(entry)
 		entries.append(entry)
+
 with open('/etc/freeradius/users.template', 'r') as f: content = f.readlines()
-#print(content)
 
 for e in entries:
 	content.append(e+"\n")
 c = ''.join(content)
-#print(c)
+
 with open('/etc/freeradius/users', 'w') as f: f.write(c)
