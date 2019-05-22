@@ -6,29 +6,37 @@ import hashlib
 import subprocess
 
 # google api credentials for google drive API
-scope = ['https://spreadsheets.google.com/feeds']
+scope = ["https://www.googleapis.com/auth/spreadsheets.readonly", 'https://www.googleapis.com/auth/drive']
 cred_file = '/home/aecc-directiva/wifi_manage/aecc-uprrp-google-api.json'
 creds = ServiceAccountCredentials.from_json_keyfile_name(cred_file, scope)
+
 client = gspread.authorize(creds)
+
 
 # Find a workbook by name and open the first sheet
 # Make sure you use the right name here.
-sheet = client.open("Formulario para Ingresar a AECC (Responses)").sheet1
+sheet = client.open_by_url("https://docs.google.com/spreadsheets/d/1PvxEBDZGxu8wYNQTNazQQxsq1P8_uW46DdessxgccM8/")
+
+# open the first sheet with the most recent listing of members 
+sheet = sheet.sheet1
 
 # acquire student numbers
-sids = sheet.col_values(6)
-
+sids = sheet.col_values(9)
+print(sids)
+print(len(sids))
 # acquire phone numbers
-phones = sheet.col_values(7)
-
+phones = sheet.col_values(6)
+print(phones)
+print(len(phones))
 # bool confirming members have payed
-confirmation = sheet.col_values(19)
-
+confirmation = sheet.col_values(21)
+print(confirmation)
+print(len(confirmation))
 # freeradius users entries
 entries = []
 
 # parse all entries and only add them if it's a confirmed member
-for i in range(1,len(sids)):
+for i in range(1,len(confirmation)):
 	if (confirmation[i] == '1'):
 		user = sids[i]
 		pswd = "AECC-" + phones[i][-4::]
