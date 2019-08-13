@@ -7,6 +7,7 @@ import subprocess
 
 # google api credentials for google drive API
 scope = ["https://www.googleapis.com/auth/spreadsheets.readonly", 'https://www.googleapis.com/auth/drive']
+# TODO: change this to an env var
 cred_file = '/home/aecc-directiva/wifi_manage/aecc-uprrp-google-api.json'
 creds = ServiceAccountCredentials.from_json_keyfile_name(cred_file, scope)
 
