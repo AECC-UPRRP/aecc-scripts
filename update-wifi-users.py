@@ -23,16 +23,16 @@ sheet = sheet.sheet1
 
 # acquire student numbers
 sids = sheet.col_values(9)
-print(sids)
-print(len(sids))
+#print(sids)
+#print(len(sids))
 # acquire phone numbers
 phones = sheet.col_values(6)
-print(phones)
-print(len(phones))
+#print(phones)
+#print(len(phones))
 # bool confirming members have payed
-confirmation = sheet.col_values(21)
-print(confirmation)
-print(len(confirmation))
+confirmation = sheet.col_values(28)
+#print(confirmation)
+#print(len(confirmation))
 # freeradius users entries
 entries = []
 
